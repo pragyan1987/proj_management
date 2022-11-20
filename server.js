@@ -144,32 +144,33 @@ app.post('/api/add_technologies', upload.single('Image'), (req, res) => {
       
       conn.query(sqlQuery3, data,(err, results) => {
         if(err) throw err;
-//         let sqlQuery4 = "SELECT * FROM signup_tbl WHERE user_id=" + req.body.member_id+"";
+        let sqlQuery4 = "SELECT * FROM signup_tbl WHERE user_id=" + req.body.member_id+"";
 
       
 
-// var transporter = nodemailer.createTransport({
-//   service: 'gmail',
-//   auth: {
-//     user: 'pragyan87.das@gmail.com',
-//     pass: ''
-//   }
-// });
-//         let email=sqlQuery4.email
-//         var mailOptions = {
-//           from: 'pragyan87.das@gmail.com',
-//           to: `${email}`,
-//           subject: 'Sending Email using Node.js',
-//           text: 'That was easy!'
-//         };
+var transporter = nodemailer.createTransport({
+  host: "smtp.gmail.com",
+ 
+  auth: {
+    user: 'pragyan87.das@gmail.com',
+    pass: ''
+  }
+});
+        let email=sqlQuery4.email
+        var mailOptions = {
+          from: 'pragyan87.das@gmail.com',
+          to: `${email}`,
+          subject: 'Sending Email using Node.js',
+          text: 'That was easy!'
+        };
         
-//         transporter.sendMail(mailOptions, function(error, info){
-//           if (error) {
-//             console.log(error);
-//           } else {
-//             console.log('Email sent: ' + info.response);
-//           }
-//         });
+        transporter.sendMail(mailOptions, function(error, info){
+          if (error) {
+            console.log(error);
+          } else {
+            console.log('Email sent: ' + info.response);
+          }
+        });
         res.send(apiResponse(results));
       });
     }
